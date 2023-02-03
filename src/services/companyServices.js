@@ -11,32 +11,43 @@ const postCompanyService=async (req,resp)=>{
   const csv=await axios.get(url);
   let data=csv.data;
   let index=1;
+  let companyCEO;
+  let companyName;
   data=data.split('\n');
   data.forEach(async(line)=>{
     if(index!=1){
       const company=line.split(',');
       const companyId=company[0];
       const companySector=company[1];
-      const dataByID=await Services.getCompanyById(companyId);
-      const companyName=dataByID.name;
-      console.log(companyName);
-      const companyCEO=dataByID.ceo;
-      const companyPerformance=(await Services.getCompanyBySector(companySector)).filter((company)=>company.companyId===companyId);
-      const performanceIndex=companyPerformance[0].performanceIndex;
-      const cpi=performanceIndex.filter((index)=>index.key==='cpi')[0].value;
-      const cf=performanceIndex.filter((index)=>index.key==='cf')[0].value;
-      const mau=performanceIndex.filter((index)=>index.key==='mau')[0].value;
-      const roic=performanceIndex.filter((index)=>index.key==='roic')[0].value;
-      const score=((cpi * 10) + (cf / 10000) + (mau * 10) + roic) / 4;
-  
-        
-      await db.Companies.create({
-        companyID:companyId,
-        companyName:companyName,
-        ceo:companyCEO,
-        score:score,
+      const dataByIDPromise= getCompanyById(companyId);
+      dataByIDPromise.then((dataByID)=>{
+        companyName=dataByID.name;
+        companyCEO=dataByID.ceo;
+        const companyPerformancePromise=getCompanyBySector(companySector);
+        return companyPerformancePromise;
+      }).then((companyPerformance)=>{
+        companyPerformance=companyPerformance.filter((company)=>company.companyId===companyId);
+        const performanceIndex=companyPerformance[0].performanceIndex;
+        const cpi=performanceIndex.filter((index)=>index.key==='cpi')[0].value;
+        const cf=performanceIndex.filter((index)=>index.key==='cf')[0].value;
+        const mau=performanceIndex.filter((index)=>index.key==='mau')[0].value;
+        const roic=performanceIndex.filter((index)=>index.key==='roic')[0].value;
+        const score=((cpi * 10) + (cf / 10000) + (mau * 10) + roic) / 4;
+        const addInDBPromise=db.Companies.create({
+          companyID:companyId,
+          companyName:companyName,
+          ceo:companyCEO,
+          score:score,
+        });
+        return addInDBPromise;
+      }).then((addInDB)=>{
+        console.log('Done');
+        index++;
       });
-      index++;
+      
+      //   console.log(companyName);
+      
+      //   const companyPerformancePromise=getCompanyBySector(companySector).filter((company)=>company.companyId===companyId);
     } 
   });
 };
