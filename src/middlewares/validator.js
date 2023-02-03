@@ -1,8 +1,10 @@
 const Joi = require('joi');
+const { UUID } = require('sequelize');
 const { HttpError } = require('../../errors/customError');
 
 const nameSchema = Joi.object({
-  sector: Joi.string().alphanum().min(1).max(30).required()
+  sector: Joi.string().alphanum().min(1).max(30).required(),
+  id:UUID
 });
 const getValidator = async (req, resp, next) => {
   try {

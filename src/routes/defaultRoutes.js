@@ -6,7 +6,7 @@ const router = express.Router();
 const Services=require('../services/companyServices');
 // const db=require('../../database/models');
 const controller=require('../controllers/companyController');
-router.post('/api/save',controller.postCompanyHandler);
+router.post('/api/save',Validator.getValidator,controller.postCompanyHandler);
 
 router.get('/api/companies',Validator.getValidator,  async(req, res) => {
   const sector = req.query.sector;

@@ -2,6 +2,7 @@ const axios=require('axios');
 const Services=require('../services/companyServices');
 // const db=require('../../database/models');
 const postCompanyHandler=async(req,resp)=>{
+  console.log('Inside postCompanyHandler');
   const url=req.body.urlLink;
   const csv=await axios.get(url);
   const postResp=await Services.postCompanyService(url,csv);

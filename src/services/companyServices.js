@@ -1,12 +1,7 @@
 const axios = require('axios');
 // const { response } = require('express');
 const db=require('../../database/models');
-const postService=()=>{
 
-};
-const getService=()=>{
-
-};
 const postCompanyService=async (url,csv)=>{
   let data=csv.data;
   let index=1;
@@ -59,7 +54,6 @@ const getCompanyById=async (id)=>{
   return thisCompany.data;
 };
 module.exports={
-  postService,getService,
   getCompanyBySector,
   getCompanyById,
   postCompanyService
