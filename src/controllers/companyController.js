@@ -1,9 +1,11 @@
-// const axios=require('axios');
+const axios=require('axios');
 const Services=require('../services/companyServices');
 // const db=require('../../database/models');
 const postCompanyHandler=async(req,resp)=>{
-  await Services.postCompanyService(req,resp);
-  resp.send('success');
+  const url=req.body.urlLink;
+  const csv=await axios.get(url);
+  const postResp=await Services.postCompanyService(url,csv);
+  resp.send(postResp);
 };
 const getCompanyBySectorHandler=async(req,resp)=>{
   const sector=req.query.sector;

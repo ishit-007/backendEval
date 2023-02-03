@@ -1,5 +1,6 @@
 // const { response } = require('express');
-const axios=require('axios');
+// const axios=require('axios');
+const Validator=require('../middlewares/validator');
 const express = require('express');
 const router = express.Router();
 const Services=require('../services/companyServices');
@@ -7,7 +8,7 @@ const Services=require('../services/companyServices');
 const controller=require('../controllers/companyController');
 router.post('/api/save',controller.postCompanyHandler);
 
-router.get('/api/companies',  async(req, res) => {
+router.get('/api/companies',Validator.getValidator,  async(req, res) => {
   const sector = req.query.sector;
   const thisCompany = await Services.getCompanyBySector(sector);
   console.log(typeof thisCompany);

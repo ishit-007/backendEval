@@ -1,4 +1,5 @@
 const axios = require('axios');
+// const { response } = require('express');
 const db=require('../../database/models');
 const postService=()=>{
 
@@ -6,9 +7,7 @@ const postService=()=>{
 const getService=()=>{
 
 };
-const postCompanyService=async (req,resp)=>{
-  const url=req.body.urlLink;
-  const csv=await axios.get(url);
+const postCompanyService=async (url,csv)=>{
   let data=csv.data;
   let index=1;
   let companyCEO;
@@ -20,6 +19,7 @@ const postCompanyService=async (req,resp)=>{
       const companyId=company[0];
       const companySector=company[1];
       const dataByIDPromise= getCompanyById(companyId);
+
       dataByIDPromise.then((dataByID)=>{
         companyName=dataByID.name;
         companyCEO=dataByID.ceo;
@@ -33,6 +33,7 @@ const postCompanyService=async (req,resp)=>{
         const mau=performanceIndex.filter((index)=>index.key==='mau')[0].value;
         const roic=performanceIndex.filter((index)=>index.key==='roic')[0].value;
         const score=((cpi * 10) + (cf / 10000) + (mau * 10) + roic) / 4;
+        // return {score:score,companyName:companyName,companyCEO:companyCEO};
         const addInDBPromise=db.Companies.create({
           companyID:companyId,
           companyName:companyName,
@@ -44,9 +45,7 @@ const postCompanyService=async (req,resp)=>{
         console.log('Done');
         index++;
       });
-      
       //   console.log(companyName);
-      
       //   const companyPerformancePromise=getCompanyBySector(companySector).filter((company)=>company.companyId===companyId);
     } 
   });
