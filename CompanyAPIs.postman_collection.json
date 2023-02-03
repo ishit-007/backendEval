@@ -1,0 +1,39 @@
+{
+	"info": {
+		"_postman_id": "c76e45a6-9d66-4042-9450-eb8164fcf0c7",
+		"name": "CompanyAPIs",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25281120"
+	},
+	"item": [
+		{
+			"name": "companyPostRequest",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"urlLink\": \"https://store-0001.s3.amazonaws.com/input.csv\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5432/api/save",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5432",
+					"path": [
+						"api",
+						"save"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
