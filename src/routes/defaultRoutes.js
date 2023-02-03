@@ -3,7 +3,7 @@ const axios=require('axios');
 const express = require('express');
 const router = express.Router();
 const Services=require('../services/companyServices');
-const db=require('../../database/models');
+// const db=require('../../database/models');
 const controller=require('../controllers/companyController');
 router.post('/api/save',controller.postCompanyHandler);
 
