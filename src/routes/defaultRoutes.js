@@ -10,7 +10,8 @@ router.post('/api/save',async(req,resp)=>{
   const csv=await axios.get(url);
   let data=csv.data;
   let index=1;
-  data=data.split('\n').forEach(async(line)=>{
+  data=data.split('\n');
+  data.forEach(async(line)=>{
     if(index!=1){
       const company=line.split(',');
       const companyId=company[0];
@@ -26,7 +27,8 @@ router.post('/api/save',async(req,resp)=>{
       const mau=performanceIndex.filter((index)=>index.key==='mau')[0].value;
       const roic=performanceIndex.filter((index)=>index.key==='roic')[0].value;
       const score=((cpi * 10) + (cf / 10000) + (mau * 10) + roic) / 4;
-      console.log([companyId,companyName,companySector,companyCEO,score]);
+
+      
       await db.Companies.create({
         companyID:companyId,
         companyName:companyName,
@@ -34,9 +36,9 @@ router.post('/api/save',async(req,resp)=>{
         score:score,
       });
       index++;
-      resp.send('success');
-    }
+    } 
   });
+  resp.send('success');
 });
 
 router.get('/api/companies',  async(req, res) => {
