@@ -1,20 +1,8 @@
-// const { response } = require('express');
-// const axios=require('axios');
-const Validator=require('../middlewares/validator');
 const express = require('express');
 const router = express.Router();
-const Services=require('../services/companyServices');
-// const db=require('../../database/models');
-const controller=require('../controllers/companyController');
-router.post('/api/save',Validator.getValidator,controller.postCompanyHandler);
-
-router.get('/api/companies',Validator.getValidator,  async(req, res) => {
-  const sector = req.query.sector;
-  const thisCompany = await Services.getCompanyBySector(sector);
-  console.log(typeof thisCompany);
-  console.log(thisCompany);
-  res.send(thisCompany);
-});
-
-// router.patch()
+const controller = require('../controllers/defaultController');
+const validator = require('../middlewares/validator');
+router.post('/api/save', validator.postReqValidator, controller.postReqHandler);
+router.get('/api/companies', validator.getReqValidator, controller.getReqHandler);
+router.patch('/api/update/:id', validator.patchReqValidator, controller.patchReqHandler);
 module.exports = router;

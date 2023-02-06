@@ -7,7 +7,63 @@
 	},
 	"item": [
 		{
-			"name": "companyPostRequest",
+			"name": "getRequest",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/companies?sector=Banking",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"companies"
+					],
+					"query": [
+						{
+							"key": "sector",
+							"value": "Banking"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "patchRequest",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\":\"State Bank\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/update/e245b12c-5b3b-4a83-a4ad-391974b34a37",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"update",
+						"e245b12c-5b3b-4a83-a4ad-391974b34a37"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "postRequest",
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -21,12 +77,12 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:5432/api/save",
+					"raw": "http://localhost:3000/api/save",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "5432",
+					"port": "3000",
 					"path": [
 						"api",
 						"save"
