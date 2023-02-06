@@ -6,4 +6,4 @@ const defaultRoutes = require('./src/routes/defaultRoutes');
 
 app.use(express.json());
 app.use('/', defaultRoutes);
-app.listen(port, () => console.log(`Listening on port ${port}...`));
+app.listen(3000, () => console.log(`Listening on port ${port}...`));
