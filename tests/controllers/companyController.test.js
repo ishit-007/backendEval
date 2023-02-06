@@ -1,7 +1,7 @@
 const controller = require('../../src/controllers/defaultController');
 const Services = require('../../src/services/defaultServices');
 describe('Testing getReqHandler', () => {
-  it('', async () => {
+  it('should return the companies sorted by score', async () => {
     const mockReq = {
       query: {
         sector: 'Software'
@@ -32,7 +32,7 @@ describe('Testing getReqHandler', () => {
 });
 
 describe('Testing postReqHandler', () => {
-  it('', async () => {
+  it('should return array of all comapnieswhich are added to DB with status code 201', async () => {
     const mockReq = {
       body: {
         urlLink: 'https://www.google.com/'
@@ -67,7 +67,7 @@ describe('Testing postReqHandler', () => {
 });
 
 describe('Testing patchReqHandler', () => {
-  it('', async () => {
+  it('should send status code 404 if the given ID does not exist', async () => {
     const mockId = 'ad36a7f5-7630-496e-8628-e70981179668';
     const mockCeo = 'Some person name';
     const mockName = 'Company ABC';
@@ -86,13 +86,13 @@ describe('Testing patchReqHandler', () => {
     };
     jest.spyOn(Services, 'patchReqService').mockResolvedValue('No company with that ID exists');
     await controller.patchReqHandler(mockReq, mockRes);
-    expect(mockRes.status).toHaveBeenCalledWith(400);
+    expect(mockRes.status).toHaveBeenCalledWith(404);
     expect(mockRes.send).toHaveBeenCalledWith('No company with that ID exists');
   });
 });
 
 describe('Testing patchReqHandler', () => {
-  it('', async () => {
+  it('should send the data recieved from Services', async () => {
     const mockId = 'ad36a7f5-7630-496e-8628-e70981179668';
     const mockCeo = 'Some person name';
     const mockName = 'Company ABC';

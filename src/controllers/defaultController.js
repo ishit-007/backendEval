@@ -15,7 +15,7 @@ const patchReqHandler = async (req, res) => {
   const name = req.body.name;
   const data = await Services.patchReqService(id, ceo, name);
   if (typeof data === 'string') {
-    res.status(400).send(data);
+    res.status(404).send(data);
   }
   else {
     res.status(200).send(data);

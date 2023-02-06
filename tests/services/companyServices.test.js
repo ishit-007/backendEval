@@ -143,7 +143,7 @@ describe('Testing addToDatabase Functionality', () => {
 // });
 
 describe('Testing patchReqService', () => {
-  it('',()=>{
+  it('should return number of updated fields',()=>{
     const mockCeo='Satya Nadella';
     const mockName='Microsoft';
     const mockResp1={ceo:mockCeo,companyName:mockName};
